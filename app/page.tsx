@@ -79,7 +79,7 @@ export default function Component() {
         </h1>
 
         <div className="marquee text-xl mb-4">
-          Welcome to the King's favorite diner! * Open 24/7 * Best burgers and milkshakes in town! *
+          Welcome to the King&apos; favorite diner! * Open 24/7 * Best burgers and milkshakes in town! *
         </div>
 
         <div className="flex justify-center mb-4">
@@ -110,12 +110,12 @@ export default function Component() {
         </div>
 
         <p className="text-center text-2xl mb-4 animate-blink glow">
-          🍔 Rockin' and Rollin' Burgers! 🎸
+          🍔 Rocki&apos; and Rolli&apos; Burgers! 🎸
         </p>
 
         <div className={`bg-blue-700 bg-opacity-70 border-4 border-yellow-400 p-4 mb-4 max-w-md mx-auto rounded-lg transition-colors duration-1000 ${isWhite ? 'text-white' : ''}`}>
-          <h2 className="text-3xl font-bold mb-2 text-yellow-400 glow">Today's Special:</h2>
-          <p className="text-xl">The King's Peanut Butter & Banana Burger!</p>
+          <h2 className="text-3xl font-bold mb-2 text-yellow-400 glow">Today&apos; Special:</h2>
+          <p className="text-xl">The King&apos; Peanut Butter & Banana Burger!</p>
         </div>
 
         <div className="text-center mb-4">
@@ -134,7 +134,7 @@ export default function Component() {
         </div>
 
         <div className="text-center mb-4">
-          <p className="text-2xl font-bold animate-wiggle glow">Don't be cruel to your taste buds!</p>
+          <p className="text-2xl font-bold animate-wiggle glow">Do&apos;t be cruel to your taste buds!</p>
           <p className="text-xl">Try our Blue Suede Shoes Blueberry Pie!</p>
         </div>
 
@@ -155,7 +155,7 @@ export default function Component() {
       {showMenu && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg max-w-md w-full">
-            <h2 className="text-2xl font-bold mb-4 text-black">Our Rockin' Menu</h2>
+            <h2 className="text-2xl font-bold mb-4 text-black">Our Rocki&apos; Menu</h2>
             <p className="text-black mb-4">Sorry, our menu is as elusive as Elvis himself! BURGER(495) Check back when we&apos;re done with our Hunk of Burnin&apos; SAUSAGO.</p>
             <button
               onClick={() => setShowMenu(false)}
@@ -181,7 +181,7 @@ export default function Component() {
           overflow: hidden;
         }
         .marquee::before {
-          content: "Welcome to the King's favorite diner! * Open 24/7 * Best burgers and milkshakes in town! *";
+          content: "Welcome to the King&apos; favorite diner! * Open 24/7 * Best burgers and milkshakes in town! *";
           display: inline-block;
           animation: marquee 20s linear infinite;
         }
