@@ -5,6 +5,8 @@ import { Music, Guitar } from 'lucide-react'
 export default function Component() {
   const [pageColor, setPageColor] = useState('black')
   const [isVibrating, setIsVibrating] = useState(false)
+  const [isFlashing, setIsFlashing] = useState(false)
+  const [showMenu, setShowMenu] = useState(false)
 
   useEffect(() => {
     const whiteTimer = setTimeout(() => {
@@ -20,17 +22,23 @@ export default function Component() {
       setTimeout(() => setIsVibrating(false), 200) // Vibration duration
     }, 2000) // Vibration interval
 
+    const flashInterval = setInterval(() => {
+      setIsFlashing(true)
+      setTimeout(() => setIsFlashing(false), 100) // Flash duration
+    }, 5000) // Flash interval
+
     return () => {
       clearTimeout(whiteTimer)
       clearTimeout(blackTimer)
       clearInterval(vibrationInterval)
+      clearInterval(flashInterval)
     }
   }, [])
 
   const isWhite = pageColor === 'white'
 
   return (
-    <div className={`min-h-screen font-['Comic_Sans_MS',_cursive] overflow-hidden relative transition-colors duration-1000 ${isWhite ? 'bg-white' : 'bg-black'} ${isVibrating ? 'animate-vibrate' : ''}`}>
+    <div className={`min-h-screen font-['Comic_Sans_MS',_cursive] overflow-hidden relative transition-colors duration-1000 ${isWhite ? 'bg-white' : 'bg-black'} ${isVibrating ? 'animate-vibrate' : ''} ${isFlashing ? 'animate-flash' : ''}`}>
       {/* Floating text */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {[...Array(5)].map((_, i) => (
@@ -71,7 +79,7 @@ export default function Component() {
         </h1>
 
         <div className="marquee text-xl mb-4">
-          Welcome to the King&apos;s favorite diner! * Open 24/7 * Best burgers and milkshakes in town! *
+          Welcome to the King's favorite diner! * Open 24/7 * Best burgers and milkshakes in town! *
         </div>
 
         <div className="flex justify-center mb-4">
@@ -102,18 +110,21 @@ export default function Component() {
         </div>
 
         <p className="text-center text-2xl mb-4 animate-blink glow">
-          🍔 Rockin&apos; and Rollin&apos; Burgers! 🎸
+          🍔 Rockin' and Rollin' Burgers! 🎸
         </p>
 
         <div className={`bg-blue-700 bg-opacity-70 border-4 border-yellow-400 p-4 mb-4 max-w-md mx-auto rounded-lg transition-colors duration-1000 ${isWhite ? 'text-white' : ''}`}>
-          <h2 className="text-3xl font-bold mb-2 text-yellow-400 glow">Today&apos;s Special:</h2>
-          <p className="text-xl">The King&apos;s Peanut Butter & Banana Burger!</p>
+          <h2 className="text-3xl font-bold mb-2 text-yellow-400 glow">Today's Special:</h2>
+          <p className="text-xl">The King's Peanut Butter & Banana Burger!</p>
         </div>
 
         <div className="text-center mb-4">
-          <a href="#" className="text-2xl text-yellow-300 hover:text-yellow-200 underline animate-pulse glow">
+          <button
+            onClick={() => setShowMenu(true)}
+            className="text-2xl text-yellow-300 hover:text-yellow-200 underline animate-pulse glow"
+          >
             Click here for our full menu!
-          </a>
+          </button>
         </div>
 
         <div className="flex justify-center items-center space-x-4 mb-4">
@@ -123,7 +134,7 @@ export default function Component() {
         </div>
 
         <div className="text-center mb-4">
-          <p className="text-2xl font-bold animate-wiggle glow">Don&apos;t be cruel to your taste buds!</p>
+          <p className="text-2xl font-bold animate-wiggle glow">Don't be cruel to your taste buds!</p>
           <p className="text-xl">Try our Blue Suede Shoes Blueberry Pie!</p>
         </div>
 
@@ -136,10 +147,25 @@ export default function Component() {
         <footer className="text-center text-sm mt-8">
           <p>© 1985 Graceland Diner - Best viewed with Netscape Navigator</p>
           <div className="animate-construction inline-block mt-2 glow">
-            🚧 Hunk of Burnin&apos; NIKONARD 🚧
+            🚧 Hunk of Burnin&apos; MASH PATATO 🚧
           </div>
         </footer>
       </div>
+
+      {showMenu && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg max-w-md w-full">
+            <h2 className="text-2xl font-bold mb-4 text-black">Our Rockin' Menu</h2>
+            <p className="text-black mb-4">Sorry, our menu is as elusive as Elvis himself! BURGER(495) Check back when we&apos;re done with our Hunk of Burnin&apos; SAUSAGO.</p>
+            <button
+              onClick={() => setShowMenu(false)}
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
 
       <style jsx>{`
         @keyframes twinkle {
@@ -252,6 +278,13 @@ export default function Component() {
         }
         .animate-vibrate {
           animation: vibrate 0.2s ease-in-out;
+        }
+        @keyframes flash {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
+        }
+        .animate-flash {
+          animation: flash 0.1s ease-in-out;
         }
       `}</style>
     </div>
