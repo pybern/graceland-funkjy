@@ -4,6 +4,7 @@ import { Music, Guitar } from 'lucide-react'
 
 export default function Component() {
   const [pageColor, setPageColor] = useState('black')
+  const [isVibrating, setIsVibrating] = useState(false)
 
   useEffect(() => {
     const whiteTimer = setTimeout(() => {
@@ -14,16 +15,22 @@ export default function Component() {
       setPageColor('black')
     }, 6000)
 
+    const vibrationInterval = setInterval(() => {
+      setIsVibrating(true)
+      setTimeout(() => setIsVibrating(false), 200) // Vibration duration
+    }, 2000) // Vibration interval
+
     return () => {
       clearTimeout(whiteTimer)
       clearTimeout(blackTimer)
+      clearInterval(vibrationInterval)
     }
   }, [])
 
   const isWhite = pageColor === 'white'
 
   return (
-    <div className={`min-h-screen font-['Comic_Sans_MS',_cursive] overflow-hidden relative transition-colors duration-1000 ${isWhite ? 'bg-white' : 'bg-black'}`}>
+    <div className={`min-h-screen font-['Comic_Sans_MS',_cursive] overflow-hidden relative transition-colors duration-1000 ${isWhite ? 'bg-white' : 'bg-black'} ${isVibrating ? 'animate-vibrate' : ''}`}>
       {/* Floating text */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {[...Array(5)].map((_, i) => (
@@ -64,7 +71,7 @@ export default function Component() {
         </h1>
 
         <div className="marquee text-xl mb-4">
-          Welcome to the King's favorite diner! * Open 24/7 * Best burgers and milkshakes in town! *
+          Welcome to the King&apos;s favorite diner! * Open 24/7 * Best burgers and milkshakes in town! *
         </div>
 
         <div className="flex justify-center mb-4">
@@ -95,12 +102,12 @@ export default function Component() {
         </div>
 
         <p className="text-center text-2xl mb-4 animate-blink glow">
-          🍔 Rockin' and Rollin' Burgers! 🎸
+          🍔 Rockin&apos; and Rollin&apos; Burgers! 🎸
         </p>
 
         <div className={`bg-blue-700 bg-opacity-70 border-4 border-yellow-400 p-4 mb-4 max-w-md mx-auto rounded-lg transition-colors duration-1000 ${isWhite ? 'text-white' : ''}`}>
-          <h2 className="text-3xl font-bold mb-2 text-yellow-400 glow">Today's Special:</h2>
-          <p className="text-xl">The King's Peanut Butter & Banana Burger!</p>
+          <h2 className="text-3xl font-bold mb-2 text-yellow-400 glow">Today&apos;s Special:</h2>
+          <p className="text-xl">The King&apos;s Peanut Butter & Banana Burger!</p>
         </div>
 
         <div className="text-center mb-4">
@@ -116,7 +123,7 @@ export default function Component() {
         </div>
 
         <div className="text-center mb-4">
-          <p className="text-2xl font-bold animate-wiggle glow">Don't be cruel to your taste buds!</p>
+          <p className="text-2xl font-bold animate-wiggle glow">Don&apos;t be cruel to your taste buds!</p>
           <p className="text-xl">Try our Blue Suede Shoes Blueberry Pie!</p>
         </div>
 
@@ -129,7 +136,7 @@ export default function Component() {
         <footer className="text-center text-sm mt-8">
           <p>© 1985 Graceland Diner - Best viewed with Netscape Navigator</p>
           <div className="animate-construction inline-block mt-2 glow">
-            🚧 Hunk of Burnin' Construction 🚧
+            🚧 Hunk of Burnin&apos; NIKONARD 🚧
           </div>
         </footer>
       </div>
@@ -234,6 +241,17 @@ export default function Component() {
         }
         .glow {
           text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff00de, 0 0 35px #ff00de, 0 0 40px #ff00de, 0 0 50px #ff00de, 0 0 75px #ff00de;
+        }
+        @keyframes vibrate {
+          0% { transform: translate(0); }
+          20% { transform: translate(-2px, 2px); }
+          40% { transform: translate(-2px, -2px); }
+          60% { transform: translate(2px, 2px); }
+          80% { transform: translate(2px, -2px); }
+          100% { transform: translate(0); }
+        }
+        .animate-vibrate {
+          animation: vibrate 0.2s ease-in-out;
         }
       `}</style>
     </div>
